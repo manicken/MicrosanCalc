@@ -1,0 +1,92 @@
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\Microsan Calc.exe.config
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\Microsan Calc.exe
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\Microsan Calc.pdb
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\MathNet.Numerics.dll
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\OxyPlot.dll
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\OxyPlot.WindowsForms.dll
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\OxyPlot.WindowsForms.pdb
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\OxyPlot.pdb
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\FastColoredTextBox.xml
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\MathNet.Numerics.xml
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\ResolveAssemblyReference.cache
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.SourceCodeEditForm.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.DataGridViewForm.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MathVisualDivision.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MathVisualExpressionForm.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MouseInputForm.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.PlotForm.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.RichTextBoxForm.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.RuntimeEditGuiForm.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.TrigometricFunctionsForm.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.UserDataForm.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.InputForm.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MainForm.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.Properties.Resources.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\GenerateResource.read.1.tlog
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\GenerateResource.write.1.tlog
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.exe
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.pdb
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MouseInputControl.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.RichTextBoxLoggerControl.resources
+E:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.SourceCodeEditControl.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.csprojAssemblyReference.cache
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.DataGridViewForm.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MathVisualDivision.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MathVisualExpressionForm.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MouseInputControl.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MouseInputForm.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.PlotForm.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.RichTextBoxForm.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.RichTextBoxLoggerControl.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.RuntimeEditGuiForm.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.SourceCodeEditControl.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.TrigometricFunctionsForm.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.UserDataForm.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.InputForm.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MainForm.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.Properties.Resources.resources
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.csproj.GenerateResource.cache
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.csproj.CoreCompileInputs.cache
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.exe
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.pdb
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\Microsan Calc.exe.config
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\Microsan Calc.exe
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\Microsan Calc.pdb
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\MathNet.Numerics.dll
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\OxyPlot.dll
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\OxyPlot.WindowsForms.dll
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\OxyPlot.WindowsForms.pdb
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\OxyPlot.pdb
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\FastColoredTextBox.xml
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\MathNet.Numerics.xml
+D:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.csproj.CopyComplete
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\Microsan Calc.exe.config
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\Microsan Calc.exe
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\Microsan Calc.pdb
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\OxyPlot.dll
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\OxyPlot.WindowsForms.dll
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\OxyPlot.WindowsForms.pdb
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\OxyPlot.pdb
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\FastColoredTextBox.xml
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\bin\Debug\MathNet.Numerics.xml
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.csprojAssemblyReference.cache
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.SourceCodeEditControl.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.DataGridViewForm.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MathVisualDivision.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MathVisualExpressionForm.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MouseInputControl.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MouseInputForm.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.PlotForm.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.RichTextBoxForm.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.RichTextBoxLoggerControl.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.RuntimeEditGuiForm.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.TrigometricFunctionsForm.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.UserDataForm.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.InputForm.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.MainForm.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan.Properties.Resources.resources
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.csproj.GenerateResource.cache
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.csproj.CoreCompileInputs.cache
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.csproj.CopyComplete
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.exe
+B:\_Projects\_Software\Microsan Calc\Microsan Calc\obj\Debug\Microsan Calc.pdb

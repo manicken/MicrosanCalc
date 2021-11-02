@@ -1,0 +1,243 @@
+<?xml version="1.0" standalone="yes"?>
+<variables>
+  <xs:schema id="variables" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="variables" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="earth">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="mnemonic" type="xs:string" minOccurs="0" />
+                <xs:element name="value" type="xs:string" minOccurs="0" />
+                <xs:element name="description" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="electronics">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="mnemonic" type="xs:string" minOccurs="0" />
+                <xs:element name="value" type="xs:string" minOccurs="0" />
+                <xs:element name="description" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="currencyRates">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="mnemonic" type="xs:string" minOccurs="0" />
+                <xs:element name="value" type="xs:string" minOccurs="0" />
+                <xs:element name="description" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="simpleLetters">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="mnemonic" type="xs:string" minOccurs="0" />
+                <xs:element name="value" type="xs:string" minOccurs="0" />
+                <xs:element name="description" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="distance">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="mnemonic" type="xs:string" minOccurs="0" />
+                <xs:element name="value" type="xs:string" minOccurs="0" />
+                <xs:element name="description" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="awgDiaTable">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="mnemonic" type="xs:string" minOccurs="0" />
+                <xs:element name="value" type="xs:string" minOccurs="0" />
+                <xs:element name="description" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <earth>
+    <mnemonic>earthAreaKm</mnemonic>
+    <value>510072000</value>
+    <description>Surface Area in km2</description>
+  </earth>
+  <earth>
+    <mnemonic>earthLandAreaKm</mnemonic>
+    <value>148940000</value>
+    <description>Land Area in km2</description>
+  </earth>
+  <earth>
+    <mnemonic>earthVolumeKm</mnemonic>
+    <value>1.08321*10^12</value>
+    <description>Volume in km3</description>
+  </earth>
+  <electronics>
+    <mnemonic>R1</mnemonic>
+    <value>1000</value>
+    <description>(none)</description>
+  </electronics>
+  <electronics>
+    <mnemonic>R2</mnemonic>
+    <value>2000</value>
+    <description>(none)</description>
+  </electronics>
+  <electronics>
+    <mnemonic>R3</mnemonic>
+    <value>3000</value>
+  </electronics>
+  <electronics>
+    <mnemonic>Ta</mnemonic>
+    <value>30</value>
+  </electronics>
+  <electronics>
+    <mnemonic>hello</mnemonic>
+  </electronics>
+  <electronics>
+    <mnemonic>Rjc</mnemonic>
+    <value>5</value>
+  </electronics>
+  <electronics>
+    <mnemonic>Rca</mnemonic>
+    <value>65</value>
+  </electronics>
+  <electronics>
+    <mnemonic>Vin</mnemonic>
+    <value>18</value>
+  </electronics>
+  <electronics>
+    <mnemonic>Vout</mnemonic>
+    <value>12</value>
+  </electronics>
+  <electronics>
+    <mnemonic>Iout</mnemonic>
+    <value>0,012</value>
+  </electronics>
+  <currencyRates>
+    <mnemonic>usd</mnemonic>
+    <value>9.11</value>
+    <description>kurs @ 2015-05-25</description>
+  </currencyRates>
+  <simpleLetters>
+    <mnemonic>_x_</mnemonic>
+    <value>21</value>
+  </simpleLetters>
+  <simpleLetters>
+    <mnemonic>_y_</mnemonic>
+    <value>21</value>
+  </simpleLetters>
+  <simpleLetters>
+    <mnemonic>_z_</mnemonic>
+    <value>21</value>
+  </simpleLetters>
+  <distance>
+    <mnemonic>inch@mm</mnemonic>
+    <value>25.4</value>
+    <description>the lenght of a inch in mm</description>
+  </distance>
+  <distance>
+    <mnemonic>yard@m</mnemonic>
+    <value>0.9144</value>
+  </distance>
+  <distance>
+    <mnemonic>feet@m</mnemonic>
+    <value>0.3048</value>
+  </distance>
+  <distance>
+    <mnemonic>"</mnemonic>
+    <value>2.54</value>
+  </distance>
+  <awgDiaTable>
+    <mnemonic>awg0mm</mnemonic>
+    <value>8.25246</value>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg1mm</mnemonic>
+    <value>7.34822</value>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg2mm</mnemonic>
+    <value>6.54304</value>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg3mm</mnemonic>
+    <value>5.82676</value>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg4mm</mnemonic>
+    <value>5.18922</value>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg5mm</mnemonic>
+    <value>4.62026</value>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg6mm</mnemonic>
+    <value>4.1148</value>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg7mm</mnemonic>
+    <value>3.66522</value>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg8mm</mnemonic>
+    <value>3.2639</value>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg9mm</mnemonic>
+    <value>2.90576</value>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg10mm</mnemonic>
+    <value>2.58826</value>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg11mm</mnemonic>
+    <value>2.30378</value>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg12mm</mnemonic>
+    <value>2.05232</value>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg13mm</mnemonic>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg14mm</mnemonic>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg15mm</mnemonic>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg16mm</mnemonic>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg17mm</mnemonic>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg18mm</mnemonic>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg19mm</mnemonic>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg20mm</mnemonic>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg21mm</mnemonic>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg22mm</mnemonic>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg23mm</mnemonic>
+  </awgDiaTable>
+  <awgDiaTable>
+    <mnemonic>awg24mm</mnemonic>
+  </awgDiaTable>
+</variables>

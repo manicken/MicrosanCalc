@@ -1,0 +1,75 @@
+<?xml version="1.0" standalone="yes"?>
+<Functions>
+  <xs:schema id="Functions" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="Functions" msdata:IsDataSet="true" msdata:Locale="en-US">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="electronics">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="mnemonic" type="xs:string" minOccurs="0" />
+                <xs:element name="function" type="xs:string" minOccurs="0" />
+                <xs:element name="description" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="linearAlgebra">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="mnemonic" type="xs:string" minOccurs="0" />
+                <xs:element name="function" type="xs:string" minOccurs="0" />
+                <xs:element name="description" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="general">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="mnemonic" type="xs:string" minOccurs="0" />
+                <xs:element name="function" type="xs:string" minOccurs="0" />
+                <xs:element name="description" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <electronics>
+    <mnemonic>vdiv</mnemonic>
+    <function>(1+R2/R1)</function>
+    <description>simple resistor voltage dividor</description>
+  </electronics>
+  <electronics>
+    <mnemonic>lm317vout</mnemonic>
+    <function>1.25*vdiv</function>
+    <description>LM317 output voltage</description>
+  </electronics>
+  <electronics>
+    <mnemonic>PD</mnemonic>
+  </electronics>
+  <electronics>
+    <mnemonic>Tj</mnemonic>
+    <function>Ta+(Vin-Vout)*Iout*(Rjc+Rca)</function>
+  </electronics>
+  <electronics>
+    <mnemonic>awg(</mnemonic>
+  </electronics>
+  <electronics>
+    <mnemonic>awg2(</mnemonic>
+    <function>(25.4*0.005)*(92^((36-awg)/39))</function>
+  </electronics>
+  <linearAlgebra>
+    <mnemonic>sqrMag</mnemonic>
+    <function>(x^2+y^2+z^2)</function>
+  </linearAlgebra>
+  <linearAlgebra>
+    <mnemonic>mag</mnemonic>
+    <function>sqrt(sqrMag)</function>
+    <description>can be used to calculate the diagonal in cuboid</description>
+  </linearAlgebra>
+  <general>
+    <mnemonic>handshakeProblem</mnemonic>
+    <function>(n(n-1))/2</function>
+  </general>
+</Functions>

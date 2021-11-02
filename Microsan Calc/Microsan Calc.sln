@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+# SharpDevelop 4.4
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsan Calc", "Microsan Calc.csproj", "{46836313-0CDE-4118-A9DC-C2F2AE77A2FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46836313-0CDE-4118-A9DC-C2F2AE77A2FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46836313-0CDE-4118-A9DC-C2F2AE77A2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46836313-0CDE-4118-A9DC-C2F2AE77A2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46836313-0CDE-4118-A9DC-C2F2AE77A2FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,938 @@
+using System;
+using System.Text;
+using Microsan;
+using OxyPlot;
+using OxyPlot.Series;
+using OxyPlot.WindowsForms;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+using System.IO.Ports;
+
+namespace MyNamespace
+{ 
+    // exposed methods from MainForm:
+    // public void AppendToInput(string text)
+    // public void DoCalc()
+    
+    // exposed fields from MainForm:
+    // public UserDataForm functionForm;
+    // public UserDataForm variableForm;
+    // public MathParserTK.MathParser mathParser;
+    // public double lastAnswer;
+    // public string lastEntry;
+    
+    public class RootClass
+    {
+        private static MainForm form;
+        private static List<Form> forms;
+        private static RichTextBoxForm rtxtForm;
+        private static InputForm inForm;
+        private static PlotModel plot;
+        private static PlotModel emptyPlot;
+        private static PlotView plotView;
+        private static FunctionSeries fsGlobal;
+        private static int fsGlobalIndex=0;
+        private static OxyPlot.Axes.LinearAxis Yaxis;
+        private static OxyPlot.Axes.LinearAxis Yaxis2;
+        private static OxyPlot.Axes.LinearAxis XAxis;
+        private static SerialPort uart;
+
+        
+        /// <summary>
+        /// The main entry point for the runtime compile code.
+        /// </summary>
+        public static void RootMain(object rootObject)
+        {
+            UserClass.form = (MainForm)rootObject;
+            plotView       = UserClass.form.plotForm.plotView;
+            emptyPlot      = new PlotModel();
+            
+            GetPreviousForms();
+            Init_RuntimeLogForm();
+            Init_SerialPort_Extension();
+    
+            //ClearLog();
+            //Stellar_Starway_Calc();
+            //DragonStory_NormalPlayFoodHarvestDay();
+            //DragonStory_FruitionDragonSelfEarnLevelUpTime();
+            
+            //Plot_NTC_10k_3950();
+            //FloorHeatingRealSpiral_Calc();
+            //FloorHeatingExtRealSpiral_Calc();
+            //Mp3_player_key_resistances();
+            //capacitor_freq();
+            //GeoDomeCalc();
+
+            //UserClass.form.rtxtForm.rtxt.AppendText("Hello World");
+  
+            //PrintDecTobin(Tables.charBitMap);
+            
+            //UserClass.form.ShowPlot();
+            //Plot_ResistorParValues();
+            //Plot_NTC575();
+            //Plot_LG_Ni1000();
+            //Plot_AngleAndDistanceVs_delta();
+            //Plot_SimpleFunction(0, 10000, 1, MarkerType.None, LineStyle.Solid, UC3843_RsetVsVout, "UC3843 Rset vs Vout", "Rset" , "Vout");
+            
+            //Plot_SimpleFunction(0, 100000, 1, MarkerType.None, LineStyle.Solid, MT3608_RsetVsVout, "MT3608 Rset vs Vout", "Rset" , "Vout");
+        }
+        
+        public static void DataReceivedHandler(object s, SerialDataReceivedEventArgs e)
+        {
+            string indata = uart.ReadLine();
+            int indexOf   = indata.IndexOf("O:");
+            if (indexOf != -1)
+            {
+                double dval = 0.0f;
+                string ss   = indata.Substring(indexOf+2).Replace('.', ',');
+                if (double.TryParse(ss, out dval))
+                {
+                    AddLineToLog(dval.ToString());
+                    lock (plot.SyncRoot)
+                    {
+                        fsGlobal.Points.Add(new DataPoint(fsGlobalIndex++, dval));
+                    }
+                    plot.InvalidatePlot(true);
+                    try{
+                    //if autopan is on and actually neccessary
+                    if ((fsGlobalIndex > plot.Axes[1].Maximum))
+                    {
+                        //the pan is the actual max position of the observed Axis minus the maximum data position times the scaling factor
+                        var xPan = (plot.Axes[1].ActualMaximum - plot.Axes[1].DataMaximum) * plot.Axes[1].Scale;
+                        plot.Axes[1].Pan(xPan);
+                    }  
+                    }
+                    catch(Exception ex)
+                    {
+                        AddLineToLog(ex.ToString());
+                    }
+                }
+                else
+                    AddLineToLog(ss + "parse error");
+            }
+            else
+                AddLineToLog(indata);
+        }
+        
+        private static void Init_SerialPort_Extension()
+        {
+            Get_SerialPort();
+            uart.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            
+            inForm               = Get_InputForm("Serial Port Send1");
+            inForm.Closing += form_Closing_Cancel;
+            inForm.DoVerifyInput = UartSendDataForm;
+            inForm.Show();
+            inForm               = Get_InputForm("Serial Port Send2");
+            inForm.Closing += form_Closing_Cancel;
+            inForm.DoVerifyInput = UartSendDataForm;
+            inForm.Show();
+            inForm = Get_InputForm("Serial Port Send3");
+            inForm.Closing += form_Closing_Cancel;
+            inForm.DoVerifyInput = UartSendDataForm;
+            inForm.Show();
+            
+            System.Windows.Forms.ToolStrip ts;
+            System.Windows.Forms.ToolStripButton tsBtn;
+
+            for (int i = 0; i < rtxtForm.Controls.Count; i++)
+            {
+                if (rtxtForm.Controls[i].GetType() == typeof(System.Windows.Forms.ToolStrip))
+                {    
+                    ts         = (System.Windows.Forms.ToolStrip)rtxtForm.Controls[i];
+                    
+                    tsBtn = Get_ToolStripButton(ts, "Open", false);
+                    tsBtn.Click += buttonClickEventHandler;
+                    tsBtn = Get_ToolStripButton(ts, "Close", false);
+                    tsBtn.Click += buttonClickEventHandler;
+                }
+            }
+            try{
+                UserClass.form.ShowPlot();
+            Setup_LinearPlot("temp", "temp", "temp");
+            plot.Axes[1].Maximum = 40;
+            fsGlobal      = new FunctionSeries();
+            fsGlobalIndex = 0;
+            AddToPlot(fsGlobal);
+            
+            }
+            catch(Exception ex)
+            {
+               AddLineToLog(ex.ToString()); 
+            }
+        }
+        
+        private static void Init_RuntimeLogForm()
+        {
+            rtxtForm                  = Get_RichTextBoxForm("Runtime Output");
+            // fix scroll to caret
+            rtxtForm.rtxt.TextChanged += rtxtLog_TextChanged; 
+            rtxtForm.Width            = 512;
+            rtxtForm.Height           = 512;
+            rtxtForm.Show();
+        }
+        
+        private static void Get_SerialPort()
+        {
+            if (rtxtForm.Tag != null)
+            {
+                if (rtxtForm.Tag.GetType() == typeof(System.IO.Ports.SerialPort))
+                {
+                    uart = (SerialPort)rtxtForm.Tag;
+                    AddLineToLog("found exiting uart");
+                    return;
+                }
+            }
+            uart         = new SerialPort("COM21", 9600);
+            rtxtForm.Tag = uart;
+        }
+        
+        public static RichTextBoxForm Get_RichTextBoxForm(string text)
+        {
+            for (int i = 0; i < forms.Count; i++)
+            {
+                if (forms[i].Text == text)
+                {
+                    return (RichTextBoxForm)forms[i];
+                } 
+            }
+            RichTextBoxForm new_rtxtForm = new RichTextBoxForm();
+            new_rtxtForm.Text            = text;
+            forms.Add(new_rtxtForm);
+            return new_rtxtForm;
+        }
+        public static InputForm Get_InputForm(string text)
+        {
+            for (int i = 0; i < forms.Count; i++)
+            {
+                if (forms[i].Text == text)
+                {
+                    return (InputForm)forms[i];
+                } 
+            }
+            InputForm new_inForm = new InputForm();
+            new_inForm.Text      = text;
+            forms.Add(new_inForm);
+            return new_inForm;
+        }
+        public static ToolStripButton Get_ToolStripButton(ToolStrip ts, string text, bool deletePrevious)
+        {
+            for (int i = ts.Items.Count - 1; i >= 0; i--)
+            {
+                if (ts.Items[i].Text == text)
+                {
+                    if (deletePrevious)
+                        ts.Items.RemoveAt(i);
+                    else
+                        return (ToolStripButton)ts.Items[i];
+                } 
+            }
+            ToolStripButton new_tsBtn = new ToolStripButton();
+            new_tsBtn.Text            = text;
+            ts.Items.Add(new_tsBtn);
+            return new_tsBtn;
+        }
+        private static void GetPreviousForms()
+        {
+            if (UserClass.form.Tag != null)
+            {
+                if (UserClass.form.Tag.GetType() == typeof(List<Form>))
+                {
+                    forms = (List<Form>)UserClass.form.Tag;
+                }
+                else
+                {
+                    forms              = new List<Form>();
+                    UserClass.form.Tag = forms;
+                }
+            }
+            else
+            {
+                forms              = new List<Form>();
+                UserClass.form.Tag = forms;
+            }
+        }
+        public static void rtxtLog_TextChanged(object sender, EventArgs e)
+        {
+            rtxtForm.rtxt.ScrollToCaret();
+        }
+        public static bool UartSendDataForm(string data)
+        {
+            if (uart.IsOpen)
+            {
+                AddLineToLog("data sent >>>" + data + "<<<");
+                uart.WriteLine(data);
+            }
+            else
+            {
+                AddLineToLog("Data not sent (port not open)");
+            }
+            return true;
+        }
+        public static void form_Closing_Cancel(object s, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            ((Form)s).Visible = false;
+        }
+        
+        public static void buttonClickEventHandler(object s , EventArgs ea)
+        {
+            System.Windows.Forms.ToolStripButton b = (System.Windows.Forms.ToolStripButton)s;
+            try {
+            if (b.Text == "Open")
+                uart.Open();
+            else if (b.Text == "Close")
+                uart.Close();
+            }
+            catch (Exception ex)
+            {
+                AddLineToLog(ex.ToString());
+            }
+            
+        }
+        
+        
+        
+        public static void DragonStory_FruitionDragonSelfEarnLevelUpTime()
+        {
+            double totalTime = 0.0f;
+            totalTime   += 125/4 + 250/4 + 625/11;
+            totalTime   += 1500/13 + 3750/15 + 6250/16;
+            totalTime  += 15000/17 + 35000/19 + 62500/20;
+            totalTime  += 75000/21 + 105000/22 + 136500/23;
+            totalTime  += 177450/24 + 267500/24;
+            AddLineToLog("DragonStory_FruitionDragonSelfEarnLevelUpTime: " + totalTime);
+        }
+        
+        public static void DragonStory_NormalPlayFoodHarvestDay()
+        {
+            int rushrooms            = 300; // @1h
+            int diamondates          = 800; // @5h
+            int awakeHours           = 16;
+            int sleepHours           = 24-awakeHours;
+            int farmCount            = 7;
+            int awaketime_food       = rushrooms*awakeHours*farmCount;
+            int sleeptime_food       = diamondates*(sleepHours/5)*farmCount;
+            int normalFoodHarvestDay = awaketime_food + sleeptime_food;
+            
+            AddLineToLog("DragonStory_NormalPlayFoodHarvestDay: " + normalFoodHarvestDay);
+        }
+        public static void Stellar_Starway_Calc()
+        {
+            int totalFoodFromLevel_7 = 3750+7750+15000+30000+42000+54500;
+            AddLineToLog("totalFoodFromLevel_7: " + totalFoodFromLevel_7);
+            
+        }
+        
+        public static double NTC_10k_3950_calc(double resistance)
+        {
+            double r25    = 10000f;
+            double kelvin = 273.15f;
+            double t25    = kelvin + 25f;
+            double beta   = 3950f;
+            double temp   = 1f/(Math.Log(resistance/r25)/beta+1f/t25)-kelvin;
+            return temp;
+        }
+        
+        public static void Plot_NTC_10k_3950()
+        {
+            AddLineToLog("temp = " + NTC_10k_3950_calc(6300));
+            AddLineToLog("temp = " + NTC_10k_3950_calc(13600));
+            AddLineToLog("temp = " + NTC_10k_3950_calc(13860));
+            
+            Setup_LinearPlot("NTC_10k_3950", "resistance", "temp");
+            
+            FunctionSeries fs = new FunctionSeries();
+            for (int i = 5000; i < 25000; i+=100)
+            {
+                fs.Points.Add(new DataPoint(i, NTC_10k_3950_calc(i)));
+            }
+            
+            AddToPlot(fs);
+            UserClass.form.ShowPlot();
+        }
+        
+        public static void Mp3_player_key_resistances()
+        {
+            double R1   = 22.0f;
+            double MULT = 1.0f;
+            AddLineToLog("R2/(R1+R2):" + MULT*(200.0f/(R1+200.0f)));
+            AddLineToLog("R2/(R1+R2):" + MULT*(100.0f/(R1+100.0f)));
+            AddLineToLog("R2/(R1+R2):" + MULT*(50.0f/(R1+51.0f)));
+            AddLineToLog("R2/(R1+R2):" + MULT*(33.0f/(R1+33.0f)));
+            AddLineToLog("R2/(R1+R2):" + MULT*(24.0f/(R1+24.0f)));
+            AddLineToLog("R2/(R1+R2):" + MULT*(15.0f/(R1+15.0f)));
+            AddLineToLog("R2/(R1+R2):" + MULT*(9.1f/(R1+9.1f)));
+            AddLineToLog("R2/(R1+R2):" + MULT*(6.2f/(R1+6.2f)));
+            AddLineToLog("R2/(R1+R2):" + MULT*(3.0f/(R1+3.0f)));
+        }
+        
+        public static void capacitor_freq()
+        {
+            double CuF = 10f;
+            double C   = CuF / 1000000;
+            double I   = 0.035f;
+            double V   = 9.0f;
+            double R   = V/I;
+            double t   = R*C;
+            AddLineToLog("t = RxC = " + t);
+        }
+        
+        public static void FloorHeatingRealSpiral_Calc()
+        {
+            
+            double PI     = 3.1415f;
+            double lenght = 0.0f;
+            lenght += (0.275*11*PI)/2;
+            lenght += (0.275*9*PI);
+            lenght += (0.275*7*PI);
+            lenght += (0.275*5*PI);
+            lenght += (0.275*3*PI);
+            lenght += (0.275*1*PI);
+            lenght += (2.25*10) + 2*4;
+            AddLineToLog("total lenght:" + lenght);
+        }
+        public static void FloorHeatingExtRealSpiral_Calc()
+        {
+            
+            double PI             = 3.1415f;
+            double unit           = 0.275f;
+            double langSidaGround = unit*7;
+            double lenght         = 0.0f;
+            lenght += ((unit*PI)/4)*22;
+            lenght += langSidaGround;
+            lenght += (langSidaGround+unit)*2;
+            lenght += (langSidaGround+unit*3)*2;
+            lenght += (langSidaGround+unit*5)*2;
+            lenght += (langSidaGround+unit*7)*2;
+            lenght += (langSidaGround+unit*9)*2;
+            lenght += (langSidaGround+unit*10);
+            lenght += (unit*2)*2;
+            lenght += (unit*4)*2;
+            lenght += (unit*6)*2;
+            lenght += (unit*8)*2;
+            lenght += (unit*10);
+            AddLineToLog("total lenght ext:" + lenght);
+        }
+        public static void GeoDomeCalc()
+        {
+            ClearLog();
+            //double lenA = 0.87138f; // red
+            //double lenB = 1.00888f; // blue
+            //double lenC = 1.03093f; // green
+            
+            //double lenA = 0.871f; // red
+            //double lenB = 1.008f; // blue
+            //double lenC = 1.031f; // green
+            
+            double lenA = 0871f;//.38f; // red
+            double lenB = 1008f;//.88f; // blue
+            double lenC = 1030f;//.93f; // green
+            
+            double halfLenB = lenB/2.0f;
+            
+            //double angleBArad = halfLenB/lenA;
+            
+            double heightAB = PytGetKat(lenA, halfLenB);
+            double heightBC = PytGetKat(lenC, halfLenB);
+
+            double angleBA = AcosAsDeg(halfLenB, lenA);
+            //int intAngleBA = Convert.ToInt32(angleBA);
+            
+            double angleAA = (90.0f - angleBA)*2.0f;
+            //int intAngleAA = Convert.ToInt32(angleAA);
+            
+            double angleBC = AcosAsDeg(halfLenB, lenC);
+            //int intAngleBC = Convert.ToInt32(angleBC);
+            
+            double angleCC = (90.0f - angleBC)*2.0f;
+            //int intAngleCC = Convert.ToInt32(angleCC);
+            
+            AddLineToLog("A/B height: " + heightAB);
+            AddLineToLog("B/C height: " + heightBC);
+            AddLineToLog();
+            //AddLineToLog("A/B rel : " + angleBArad);
+            AddLineToLog("A/B angle: " + angleBA);
+            AddLineToLog("A/A angle: " + angleAA);
+            AddLineToLog("B/C angle: " + angleBC);
+            AddLineToLog("C/C angle: " + angleCC);
+            AddLineToLog();
+            AddLineToLog("A/B neg angle: " + (90.0f - angleBA));
+            AddLineToLog("B/C neg angle: " + (90.0f - angleBC));
+        }
+        
+        public static double PowTo2(double x)
+        {
+            return Math.Pow(x, 2.0f);
+        }
+        
+        public static double PytGetKat(double hyp, double kat)
+        {
+            return Math.Sqrt(PowTo2(hyp)-PowTo2(kat));
+        }
+        
+        public static double PytGetHyp(double kat1, double kat2)
+        {
+            return Math.Sqrt(PowTo2(kat1)+PowTo2(kat2));
+        }
+        
+        // parenthesis
+        public static string Phss(double text)
+        {
+            return " (" + text + ")";
+        }
+        public static int[] DoubleFactorial = new int[]
+        { //0,1,2,3,4, 5, 6,  7,  8,  9,  10,   11,   12,    13,   14
+            1,1,2,3,8,15,48,105,384,945,3840,10395,46080,135135,645120
+        };
+        
+        public static double Asin_aprox(double z)
+        {
+            int nMax   = 7;
+            double res = z;
+            double t   = 0.0f;
+            for (int n = 1; n < nMax; n++)
+            {
+                t = DoubleFactorial[2*n-1]/DoubleFactorial[2*n];
+                t *= Math.Pow(z, 2*n+1)/(2*n+1);
+               res += t; 
+            }
+           return res;
+        }
+        
+        public static double AcosAsDeg(double adj, double hyp)
+        {
+            double opp = PytGetKat(hyp, adj);
+            //return ToDegree(Asin_aprox(opp/hyp));
+            return ToDegree(Math.Asin(opp/hyp));
+        }
+        
+        public static double ToDegree(double radianDegree)
+        {
+            return (radianDegree * 180.0f) / Math.PI;
+        }
+        
+        public static void PrintDecTobin(int[] decArray)
+        {
+            //ClearLog();
+            //string[] binStr = new string[decArray.Length];
+            
+            //for (int i = 0; i < decArray.Length; i++)
+            //    binStr[i] = Convert.ToString(decArray[i], 2).PadLeft(8, '0'));
+            
+            Form f        = new Form();
+            PictureBox pb = new PictureBox();
+            pb.Image      = GetMonocromeBitmap(decArray, 80, -1);
+            pb.SizeMode   = PictureBoxSizeMode.Zoom;
+            pb.Dock       = DockStyle.Fill;
+            f.Controls.Add(pb);
+            f.Show();
+        }
+        
+        public static Bitmap GetMonocromeBitmap(int[] DATA, int width, int height)
+        {
+            if (height == -1)
+                height = (DATA.Length*8)/width;
+            
+            Bitmap bm = new Bitmap(width, height);// System.Drawing.PixelFormat.Format1bppIndexed);
+            
+            //var b            = new Bitmap(width, height, PixelFormat.Format8bppIndexed);
+            //ColorPalette ncp = b.Palette;
+            //for (int i = 0; i < 256; i++)
+            //    ncp.Entries[i] = Color.FromArgb(255, i, i, i);
+            //b.Palette = ncp;
+            
+            int currentByteIndex = 0;
+            string currentByte   = "";
+            int bitIndex         = 8;
+            
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    if (bitIndex == 8)
+                    {
+                        bitIndex    = 0;
+                        currentByte = Convert.ToString(DATA[currentByteIndex++], 2).PadLeft(8, '0');
+                    }
+                    
+                    if (currentByte[bitIndex] == '1')
+                        bm.SetPixel(x,y,Color.White);
+                    else
+                        bm.SetPixel(x,y,Color.Black);
+                    
+                    //int Value = DATA[x + (y * width)];
+                    //Color C = ncp.Entries[Value];
+                    
+                    bitIndex++;
+                }
+            }
+            return bm;
+        }
+        
+        public static double MT3608_RsetVsVout(int Rset)
+        {
+            return 0.6f * (1.0f + (double)Rset/(2200.0f+330));
+        }
+        
+        public static double UC3843_RsetVsVout(int Rset)
+        {
+            Rset += 3300;
+            
+            return 2.5f * (1.0f + (double)Rset/(1000.0f));
+        }
+        
+        public static void Plot_SimpleFunction(int xMin, int xMax, int stepSize, MarkerType mt, LineStyle ls, Func<int, double> func, params string[] main_Xaxis_Yaxis_titles)
+        {
+            if (stepSize == 0) stepSize = 1;
+            Setup_LinearPlot(main_Xaxis_Yaxis_titles);
+            
+            FunctionSeries fs = new FunctionSeries();
+            
+            fs.MarkerType = mt;
+            fs.LineStyle  = ls;
+            
+            for (int i = xMin; i <= xMax; i+=stepSize)
+            {
+                fs.Points.Add(new DataPoint(i, func(i)));
+            }
+            AddToPlot(fs);
+            
+        }
+        
+        public static void Plot_SimpleFunction(double xMin, double xMax, double stepSize, MarkerType mt, LineStyle ls, Func<double, double> func, params string[] main_Xaxis_Yaxis_titles)
+        {
+            if (stepSize == 0.0f) stepSize = 1.0f;
+            Setup_LinearPlot(main_Xaxis_Yaxis_titles);
+            
+            FunctionSeries fs = new FunctionSeries();
+            
+            fs.MarkerType = mt;
+            fs.LineStyle  = ls;
+            
+            for (double i = xMin; i <= xMax; i+=stepSize)
+            {
+                fs.Points.Add(new DataPoint(i, func(i)));
+            }
+            AddToPlot(fs);
+            
+        }
+        
+        public static void Plot_AngleAndDistanceVs_delta()
+        {
+            Setup_LinearPlot("AngleAndDistanceVs_delta", "angle", "delta");
+            
+            FunctionSeries fs = new FunctionSeries();
+            
+            fs.MarkerType = MarkerType.Circle;
+            fs.LineStyle  = LineStyle.Solid;
+            
+            double asDegree        = (Math.PI/180);
+            for (double i = 0; i < 45; i+=0.5f)
+            {
+                double calc = (Math.Tan((i+0.5f) * asDegree)*4) - (Math.Tan(i * asDegree)*4);
+                
+                fs.Points.Add(new DataPoint(i, calc));
+                //if (i < 30.0f) i+=0.5f;
+            }
+            AddToPlot(fs);
+        }
+        
+        public static void Plot_NTC575()
+        {
+            Setup_LinearPlot("NTC 575", "temp", "Vin", "ohm diff");
+            
+            FunctionSeries fsNTC575_ohm  = new FunctionSeries();
+            FunctionSeries fsNTC575_diff = new FunctionSeries();
+            //fsNTC575_ohm.Title           = "temp vs. resistance";
+            //fsNTC575_diff.Title          = "resistance diff between temps";
+            fsNTC575_ohm.Selectable     = true;
+            fsNTC575_diff.Selectable    = true;
+            fsNTC575_ohm.SelectionMode  = OxyPlot.SelectionMode.All;
+            fsNTC575_diff.SelectionMode = OxyPlot.SelectionMode.All;
+            
+            // MarkerTypes: 
+            // None, Circle, Diamond, Square, Triangle
+            // (non working) Cross, Custom, Plus, Star
+            
+            fsNTC575_ohm.MarkerType          = MarkerType.Circle;
+            fsNTC575_ohm.LineStyle           = LineStyle.Solid;
+            fsNTC575_ohm.BrokenLineStyle     = LineStyle.None;
+            fsNTC575_ohm.BrokenLineThickness = 2.0f;
+            fsNTC575_ohm.BrokenLineColor     = OxyColor.FromRgb(128, 128, 128);
+            
+            // LineStyles:
+            // None, Automatic, Dot, Dash, LongDash, Solid,
+            // DashDashDot, DashDashDotDot, DashDot, DashDotDot,
+            // LongDashDot, LongDashDotDot
+            
+            
+            fsNTC575_diff.MarkerType = MarkerType.Circle;
+            fsNTC575_diff.LineStyle  = LineStyle.Dot;
+            
+            fsNTC575_ohm.YAxisKey       = "Y1";
+            fsNTC575_diff.YAxisKey      = "Y2";
+            
+            int count      = Tables.NTC575.Length;
+            bool transLine = true;
+            for (int i = 0; i < count; i+=2)
+            {
+                double temp = Tables.NTC575[i];
+                double ohm  = Tables.NTC575[i+1];
+                if (i < (count - 2))
+                {
+                    double ohmDiff = ohm - Tables.NTC575[i+3];
+                    fsNTC575_diff.Points.Add(new DataPoint(temp + 0.5f, ohmDiff));
+                }
+                double mA   = 5f;
+                double volt = ohm * (mA/1000);
+                
+                
+                if (volt > 3.0f)
+                    volt -= 2.99f;
+                else
+                {
+                    if (transLine)
+                    {
+                        fsNTC575_ohm.Points.Add(DataPoint.Undefined); // breaks the line
+                        transLine = false;
+                    }
+                    volt -= 2.6f;
+                }
+                volt = 10*volt;
+                fsNTC575_ohm.Points.Add(new DataPoint(temp, volt));
+                //fsNTC575_ohm.Points.Add(new DataPoint(temp, ohm));
+            }
+            AddToPlot(fsNTC575_diff);
+            AddToPlot(fsNTC575_ohm);
+            Yaxis.Minimum = 0;
+            Yaxis.Maximum = 4;
+            //Yaxis.MajorStep  = 0.01f;
+            //Yaxis.MinorStep  = 0.001f;
+            Yaxis2.MajorStep = 0.1f;
+        }
+        
+        public static void Plot_LG_Ni1000()
+        {
+            Setup_LinearPlot("LG-Ni1000", "temp", "resistance");
+            
+            FunctionSeries fsLG_Ni1000 = new FunctionSeries();
+            for (int i = 0; i < Tables.LG_Ni1000.Length; i+=2)
+            {
+                fsLG_Ni1000.Points.Add(new DataPoint(Tables.LG_Ni1000[i], Tables.LG_Ni1000[i+1]));
+            }
+            
+            AddToPlot(fsLG_Ni1000);
+        }
+        
+        
+        public static void Plot_ResistorParValues()
+        {
+            int constant,start,end;
+            
+            constant = 820;
+            start    = 500;
+            end      = start + 10000;
+            
+            //constant = 330;
+           
+            //start = 5330;
+            //end   = start + 1000;
+            
+            //constant = 470;
+            //start    = 1800;
+            //end      = start + 500;
+
+            //constant = 3300;
+            //start    = 0;
+            //end      = 10000;
+            
+            //constant = 628;
+            //start = 127000;
+            //end = 135000;
+            
+            Setup_LinearPlot("resistor par values" , "pot val", "ohm");
+            
+            FunctionSeries fs = new FunctionSeries();
+            
+            double dec_constant = (double)constant;
+            
+            for (int x = start; x <= end; x++)
+            {
+                double xd   = (double)x;
+                double dTmp = (dec_constant*xd)/(dec_constant+xd);
+                
+                fs.Points.Add(new DataPoint(x, (double)dTmp));
+            }
+            //AddToPlot(fs);
+            // example using function pointer
+            double incr = 1.0f;
+            AddToPlot(new FunctionSeries(ResistorParWithConst, start, end, incr, "resulting resistance"));
+        }
+        
+        public static double ResistorParWithConst(double varRes)
+        {
+            double constant = 1000;
+            return (constant*varRes)/(constant+varRes);
+        }
+        
+       
+        public static void Setup_LinearPlot(params string[] main_Xaxis_Yaxis_titles)//, string xAxisTitle, string yAxisTitle)
+        {
+            string mainTitle = "", xAxisTitle = "X", yAxisTitle = "Y";
+            
+            if (main_Xaxis_Yaxis_titles.Length == 0) { mainTitle = "Simple Function Plot"; }
+            else if (main_Xaxis_Yaxis_titles.Length == 1)
+            {
+                mainTitle = main_Xaxis_Yaxis_titles[0];
+            }
+            else if (main_Xaxis_Yaxis_titles.Length == 2)
+            {
+                mainTitle = main_Xaxis_Yaxis_titles[0];
+                xAxisTitle += " (" + main_Xaxis_Yaxis_titles[1] + ")";
+            }
+            else if (main_Xaxis_Yaxis_titles.Length >= 3)
+            {
+                mainTitle  = main_Xaxis_Yaxis_titles[0]; 
+                xAxisTitle += " (" + main_Xaxis_Yaxis_titles[1] + ")";
+                yAxisTitle += " (" + main_Xaxis_Yaxis_titles[2] + ")";
+            }
+            
+            
+            plot                   = new PlotModel { Title = mainTitle };
+            plot.LegendPosition    = LegendPosition.RightBottom;
+            plot.LegendPlacement   = LegendPlacement.Outside;
+            plot.LegendOrientation = LegendOrientation.Horizontal;
+
+            
+            Yaxis = new OxyPlot.Axes.LinearAxis
+            {
+                Title = yAxisTitle,
+                MajorGridlineStyle = LineStyle.Solid,
+                MinorGridlineStyle = LineStyle.Dot
+            };
+            
+            XAxis = new OxyPlot.Axes.LinearAxis
+            {
+                Title = xAxisTitle,
+                Position    = OxyPlot.Axes.AxisPosition.Bottom, 
+                //Minimum = start,
+                //Maximum = end,
+                MajorGridlineStyle = LineStyle.Solid,
+                MinorGridlineStyle = LineStyle.Dot
+            };
+
+            plot.Axes.Add(Yaxis);
+            plot.Axes.Add(XAxis);
+            
+        }
+        public static void Setup_LinearPlot(string mainTitle, string xAxisTitle, string yAxisTitle, string yAxis2Title)
+        {
+            plot                   = new PlotModel { Title = mainTitle };
+            plot.LegendPosition    = LegendPosition.RightBottom;
+            plot.LegendPlacement   = LegendPlacement.Outside;
+            plot.LegendOrientation = LegendOrientation.Horizontal;
+
+            
+            Yaxis = new OxyPlot.Axes.LinearAxis
+            {
+                Title = yAxisTitle,
+                Key = "Y1",
+                MajorGridlineStyle = LineStyle.Solid,
+                MinorGridlineStyle = LineStyle.Dash,
+                //MinorGridlineColor = OxyPlot.OxyColor.FromRgb(255, 165, 0), // Orange
+                //MajorGridlineColor = OxyPlot.OxyColor.FromRgb(255, 140, 0), // DarkOrange
+                //MinorStep = 1f,
+                Position = OxyPlot.Axes.AxisPosition.Left
+            };
+            
+            Yaxis2 = new OxyPlot.Axes.LinearAxis
+            {
+                Title = yAxis2Title,
+                Key = "Y2",
+                MajorGridlineStyle = LineStyle.None,
+                MinorGridlineStyle = LineStyle.None,
+                //MinorGridlineColor = OxyPlot.OxyColor.FromRgb(0, 100, 0), // Green
+                //MajorGridlineColor = OxyPlot.OxyColor.FromRgb(0, 140, 0), // DarkGreen
+                MajorStep = 0.1f,
+                MinorStep = 0.1f,
+                MajorGridlineThickness = 1.0f,
+                Position = OxyPlot.Axes.AxisPosition.Right
+            };
+            
+            XAxis = new OxyPlot.Axes.LinearAxis
+            {
+                Title = xAxisTitle,
+                Position    = OxyPlot.Axes.AxisPosition.Bottom, 
+                //Minimum = start,
+                //Maximum = end,
+                MajorGridlineStyle = LineStyle.Solid,
+                MinorGridlineStyle = LineStyle.Dot
+            };
+
+            plot.Axes.Add(Yaxis);
+            plot.Axes.Add(XAxis);
+            plot.Axes.Add(Yaxis2);
+        }
+        
+        public static void AddToPlot(FunctionSeries fs)
+        {
+            plot.Series.Add(fs);
+            
+            //plotView.Model = emptyPlot;
+            if (plotView == null)
+                AddLineToLog("plotView == null");
+            else
+                plotView.Model = plot;
+        }
+
+        public static void AddToLog(string msg)
+        {
+            if (rtxtForm.InvokeRequired)
+                rtxtForm.BeginInvoke((MethodInvoker)delegate
+                {
+                    rtxtForm.rtxt.AppendText(msg);
+                });
+            else
+                rtxtForm.rtxt.AppendText(msg);
+        }
+        
+        public static void AddLineToLog(string msg)
+        {
+            if (rtxtForm.InvokeRequired)
+                rtxtForm.BeginInvoke((MethodInvoker)delegate
+                {
+                    rtxtForm.rtxt.AppendText(msg + "\n");
+                });
+            else
+                rtxtForm.rtxt.AppendText(msg + "\n");
+        }
+        
+        public static void AddLineToLog()
+        {
+            if (rtxtForm.InvokeRequired)
+                rtxtForm.BeginInvoke((MethodInvoker)delegate
+                {
+                    rtxtForm.rtxt.AppendText("\n");
+                });
+            else
+                rtxtForm.rtxt.AppendText("\n");
+        }
+        
+        public static void ClearLog()
+        {
+            if (rtxtForm.InvokeRequired)
+                rtxtForm.BeginInvoke((MethodInvoker)delegate
+                {
+                    rtxtForm.rtxt.Clear();
+                });
+            else
+                rtxtForm.rtxt.Clear();
+        }
+        public static string GetRawBytes(uint val)
+        {
+            return "{" + string.Join(", ", BitConverter.GetBytes(val)) + "}";
+        }
+    }
+}

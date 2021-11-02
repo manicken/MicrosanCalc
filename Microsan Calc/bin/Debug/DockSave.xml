@@ -1,0 +1,34 @@
+<Forms>
+  <Form>
+    <Guid>00000000-0000-0000-0000-000000000003</Guid>
+    <AllowedDock>All</AllowedDock>
+    <CurrentDock>Fill</CurrentDock>
+    <CurrentMode>Inner</CurrentMode>
+    <IsSelected>false</IsSelected>
+    <IsAutoHide>false</IsAutoHide>
+    <Width>500</Width>
+    <Height>607</Height>
+  </Form>
+  <Form>
+    <Guid>00000000-0000-0000-0000-000000000002</Guid>
+    <AllowedDock>All</AllowedDock>
+    <CurrentDock>Top</CurrentDock>
+    <CurrentMode>Inner</CurrentMode>
+    <IsSelected>false</IsSelected>
+    <IsAutoHide>false</IsAutoHide>
+    <Width>504</Width>
+    <Height>300</Height>
+    <ParentGuid>00000000-0000-0000-0000-000000000003</ParentGuid>
+  </Form>
+  <Form>
+    <Guid>00000000-0000-0000-0000-000000000001</Guid>
+    <AllowedDock>All</AllowedDock>
+    <CurrentDock>Bottom</CurrentDock>
+    <CurrentMode>Inner</CurrentMode>
+    <IsSelected>true</IsSelected>
+    <IsAutoHide>false</IsAutoHide>
+    <Width>504</Width>
+    <Height>304</Height>
+    <ParentGuid>00000000-0000-0000-0000-000000000002</ParentGuid>
+  </Form>
+</Forms>

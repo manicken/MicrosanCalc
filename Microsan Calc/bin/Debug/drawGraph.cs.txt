@@ -1,0 +1,45 @@
+//your function based on x,y
+        public static double Example_getValue(int x, int y)
+        {
+            return (10 * x * x + 11 * x*y*y  + 12*x*y );
+        }
+
+        //setting the values to the function
+        public static FunctionSeries Example_GetFunction()
+        { 
+            int n = 100;
+            FunctionSeries serie = new FunctionSeries();
+            for (int x = 0; x < n; x++)
+            {
+                for (int y = 0; y < n; y++)
+                {
+                    //adding the points based x,y
+                    DataPoint data = new DataPoint(x, Example_getValue(x,y));
+
+                    //adding the point to the serie
+                    serie.Points.Add(data);
+                }
+            }
+            //returning the serie
+            return serie;
+        }
+
+        //setting all the parameters of the model
+        public static void Example_graph()
+        {
+            plot = new PlotModel { Title = "example" };
+            plot.LegendPosition     = LegendPosition.RightBottom;
+            plot.LegendPlacement   = LegendPlacement.Outside;
+            plot.LegendOrientation = LegendOrientation.Horizontal;
+
+            
+            plot.Series.Add(Example_GetFunction());
+            var Yaxis                     = new OxyPlot.Axes.LinearAxis();
+            OxyPlot.Axes.LinearAxis XAxis = new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Bottom, Minimum = 0, Maximum = 100 };
+            XAxis.Title                   = "X";
+            Yaxis.Title                   = "20 * x * x + 11 * x*y*y  + 12*x*y";
+            plot.Axes.Add(Yaxis);
+            plot.Axes.Add(XAxis);
+            plotView.Model    = plot;
+
+        }

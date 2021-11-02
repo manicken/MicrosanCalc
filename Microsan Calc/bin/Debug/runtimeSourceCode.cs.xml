@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RC_2</name>
+    </assembly>
+    <members>
+        <member name="M:UserNamespace.UserClass.UserMain(System.Object)">
+            <summary>
+            The main entry point for the runtime compile code.
+            </summary>
+        </member>
+    </members>
+</doc>

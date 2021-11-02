@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{46836313-0CDE-4118-A9DC-C2F2AE77A2FC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsan</RootNamespace>
+    <AssemblyName>Microsan Calc</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugType>Full</DebugType>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\1432423264_Abacus.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <BaseAddress>4194304</BaseAddress>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Crom.Controls">
+      <HintPath>..\..\Crom.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="FastColoredTextBox">
+      <HintPath>..\FastColoredTextBox-master\Binary\FastColoredTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\..\DotNetZip lib\zip-v1.9\Release\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics">
+      <HintPath>..\..\..\MathNet.Numerics.3.8.0\lib\net35\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\_CommonSourceFiles\MicrosanExtensions.cs">
+      <Link>MicrosanExtensions.cs</Link>
+    </Compile>
+    <EmbeddedResource Include="..\..\_CommonSourceFiles\RuntimeProgramming\NewClass_Template.cs">
+      <Link>RuntimeProgramming\NewClass_Template.cs</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\_CommonSourceFiles\RuntimeProgramming\RootClass_Template.cs">
+      <Link>RuntimeProgramming\RootClass_Template.cs</Link>
+    </EmbeddedResource>
+    <Compile Include="..\..\_CommonSourceFiles\QuickFileAndFolderDialogs.cs">
+      <Link>RuntimeProgramming\QuickFileAndFolderDialogs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\_CommonSourceFiles\RuntimeProgramming\RuntimeProgramming.cs">
+      <Link>RuntimeProgramming\RuntimeProgramming.cs</Link>
+    </Compile>
+    <Compile Include="..\..\_CommonSourceFiles\RuntimeProgramming\SourceCodeEditControl.cs">
+      <Link>RuntimeProgramming\SourceCodeEditControl.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\..\_CommonSourceFiles\RuntimeProgramming\SourceCodeEditControl.designer.cs">
+      <Link>RuntimeProgramming\SourceCodeEditControl.designer.cs</Link>
+      <DependentUpon>SourceCodeEditControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataGridViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataGridViewForm.Designer.cs">
+      <DependentUpon>DataGridViewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MathVisualDivision.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MathVisualDivision.Designer.cs">
+      <DependentUpon>MathVisualDivision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MathVisualExpressionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MathVisualExpressionForm.Designer.cs">
+      <DependentUpon>MathVisualExpressionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MouseInputControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MouseInputControl.Designer.cs">
+      <DependentUpon>MouseInputControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MouseInputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MouseInputForm.Designer.cs">
+      <DependentUpon>MouseInputForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlotForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlotForm.Designer.cs">
+      <DependentUpon>PlotForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RichTextBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RichTextBoxForm.Designer.cs">
+      <DependentUpon>RichTextBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RichTextBoxLoggerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RichTextBoxLoggerControl.Designer.cs">
+      <DependentUpon>RichTextBoxLoggerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RuntimEditGuiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RuntimEditGuiForm.Designer.cs">
+      <DependentUpon>RuntimEditGuiForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectionRectangleHelper.cs" />
+    <Compile Include="TrigometricFunctionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrigometricFunctionsForm.Designer.cs">
+      <DependentUpon>TrigometricFunctionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserDataForm.Designer.cs">
+      <DependentUpon>UserDataForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputForm.Designer.cs">
+      <DependentUpon>InputForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MathParser.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserRect.cs" />
+    <EmbeddedResource Include="..\..\_CommonSourceFiles\RuntimeProgramming\SourceCodeEditControl.resx">
+      <Link>RuntimeProgramming\SourceCodeEditControl.resx</Link>
+      <DependentUpon>SourceCodeEditControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataGridViewForm.resx">
+      <DependentUpon>DataGridViewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MathVisualDivision.resx">
+      <DependentUpon>MathVisualDivision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MathVisualExpressionForm.resx">
+      <DependentUpon>MathVisualExpressionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MouseInputControl.resx">
+      <DependentUpon>MouseInputControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MouseInputForm.resx">
+      <DependentUpon>MouseInputForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlotForm.resx">
+      <DependentUpon>PlotForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RichTextBoxForm.resx">
+      <DependentUpon>RichTextBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RichTextBoxLoggerControl.resx">
+      <DependentUpon>RichTextBoxLoggerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuntimEditGuiForm.resx">
+      <DependentUpon>RuntimEditGuiForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrigometricFunctionsForm.resx">
+      <DependentUpon>TrigometricFunctionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserDataForm.resx">
+      <DependentUpon>UserDataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputForm.resx">
+      <DependentUpon>InputForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Categories-applications-education-mathematics-icon %2824px%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TrigFunctionsTriangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1432423217_Abacus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1432423264_Abacus.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trigFunc_arccos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trigFunc_arccot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trigFunc_arcsin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trigFunc_arctan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trigFunc_cos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trigFunc_cot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trigFunc_sin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trigFunc_tan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trigFunc_triangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\_CommonSourceFiles\oxyplot-develop\Source\OxyPlot.WindowsForms\OxyPlot.WindowsForms_NET40.csproj">
+      <Project>{d4554296-094e-4cac-8eae-44eb250666c6}</Project>
+      <Name>OxyPlot.WindowsForms_NET40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\_CommonSourceFiles\oxyplot-develop\Source\OxyPlot\OxyPlot_NET40.csproj">
+      <Project>{1c1d9807-be39-40a4-87de-3f81e7c651e5}</Project>
+      <Name>OxyPlot_NET40</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
